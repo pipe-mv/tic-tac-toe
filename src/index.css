@@ -1,0 +1,77 @@
+body {
+  font: 14px Georgia, serif;
+  margin: 20px;
+  padding: 10px 0 0 100px;
+  /* background: #fff4e6; */
+  color: #3c2f2f;
+  background-color: #61bee0;
+  background-image: url("https://www.transparenttextures.com/patterns/cartographer.png");
+  /* This is mostly intended for prototyping; please download the pattern and re-host for production environments. Thank you! */
+}
+
+.board-row:after {
+  clear: both;
+  content: "";
+  display: table;
+}
+
+.errors {
+  background: #c00;
+  color: #fff;
+  display: none;
+  margin: -20px -20px 20px;
+  padding: 20px;
+  white-space: pre-wrap;
+}
+
+.status {
+  margin-bottom: 10px;
+}
+
+.square {
+  background: #fff;
+  float: left;
+  font-size: 36px;
+  font-weight: bold;
+  line-height: 34px;
+  height: 48px;
+  margin-right: -1px;
+  margin-top: -1px;
+  padding: 0;
+  text-align: center;
+  width: 48px;
+}
+
+.square:focus {
+  outline: none;
+}
+
+.kbd-navigation .square:focus {
+  background: #ddd;
+}
+
+ol {
+  font-weight: normal;
+}
+.game {
+  display: flex;
+  flex-direction: row;
+  margin-top: 15px;
+  margin-left: 15px;
+  justify-content: space-evenly;
+}
+
+.game-info {
+  margin-left: 60px;
+  font-weight: bold;
+}
+
+.title {
+  color: #000;
+  display: flex;
+  justify-content: center;
+}
+
+.move {
+  color: springgreen;
+}
