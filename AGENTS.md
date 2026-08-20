@@ -2,32 +2,34 @@
 
 ## Project overview
 
-This repository contains a browser-based tic-tac-toe game built with React 16 and Create React App. The game supports alternating X/O turns, winner detection, and navigation through the complete move history.
+This repository contains a browser-based tic-tac-toe game built with React 19 and Vite. The game supports alternating X/O turns, winner detection, and navigation through the complete move history.
 
 ## Project structure
 
-- `src/index.js` is the application entry point and mounts the game.
-- `src/components/Game.js` owns game state, move history, time travel, and winner calculation.
-- `src/components/Board.js` renders the board and its squares.
+- `index.html` is the Vite application shell.
+- `src/index.jsx` is the application entry point and mounts the game.
+- `src/components/Game.jsx` owns game state, move history, time travel, and winner calculation.
+- `src/components/Board.jsx` renders the board and its squares.
 - `src/components/Game.css` and `src/index.css` contain the application styles.
-- `src/Game.test.js` contains the existing smoke test.
-- `public/` contains the static application shell.
+- `src/Game.test.jsx` contains the behavior tests.
+- `public/` contains static assets copied into the production build.
 - `assets/` contains images used by the README.
 - `build/` is generated deployment output; do not edit it by hand.
 
 ## Setup and commands
 
-Use the npm version compatible with the existing lockfile and legacy dependencies.
+Use Node.js 20 or newer and install the locked dependencies with npm.
 
 ```sh
-npm install
+npm ci
 npm start
-npm test -- --runInBand
+npm test
 npm run build
 ```
 
 - `npm start` runs the local development server.
-- `npm test -- --runInBand` runs the test suite once in a non-interactive environment.
+- `npm test` runs the Vitest suite once.
+- `npm run test:watch` runs Vitest in watch mode.
 - `npm run build` creates the production bundle in `build/`.
 - `npm run deploy` publishes `build/` to GitHub Pages; run it only when explicitly requested.
 
@@ -49,11 +51,10 @@ npm run build
 - Run the test suite after changing JavaScript behavior.
 - Run a production build after changing application code, dependencies, or build configuration.
 - For UI changes, manually verify board interaction, winner status, keyboard focus, and history navigation.
-- The current smoke test imports `./Game`, while the component lives at `src/components/Game.js`; account for this existing mismatch when working on tests.
 
 ## Repository hygiene
 
 - Do not commit `node_modules/` or its cache files.
-- Do not hand-edit hashed files under `build/static/`; regenerate them with `npm run build` only when updated build artifacts are part of the requested work.
+- Do not hand-edit hashed files under `build/assets/`; regenerate them with `npm run build` only when updated build artifacts are part of the requested work.
 - Preserve unrelated working-tree changes.
 - Never deploy, rewrite Git history, or remove user files unless explicitly requested.

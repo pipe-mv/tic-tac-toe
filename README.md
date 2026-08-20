@@ -1,6 +1,6 @@
 # Tic-Tac-Toe
 
-This repository contains the code for existing tic-tac-toe game programming in JavaScript using React. You can see it running [here](https://pipe-mv.github.io/tic-tac-toe/).
+This repository contains a tic-tac-toe game built with React and Vite. You can see it running [here](https://pipe-mv.github.io/tic-tac-toe/).
 
 
 * Lets you play tic-tac-toe.
@@ -11,7 +11,11 @@ This repository contains the code for existing tic-tac-toe game programming in J
 
 * Fork or clone this repository.
 
-* You can run this with `npm install` and then `npm start` from inside the directory.
+* Install the locked dependencies with `npm ci`.
+
+* Run the development server with `npm start`.
+
+* Run the tests with `npm test` and create a production build with `npm run build`.
 
 Note that the moves past the one you jump to do not need to disappear off the list. That is to say, from a board that looks like this:
 
