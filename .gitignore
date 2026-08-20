@@ -1,0 +1,5 @@
+node_modules/
+
+# Local Vite caches and logs
+.vite/
+*.log
