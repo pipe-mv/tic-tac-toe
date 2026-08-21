@@ -1,9 +1,13 @@
 import React, { act } from 'react';
-import { createRoot } from 'react-dom/client';
+import { createRoot, type Root } from 'react-dom/client';
 import Game from './components/Game';
 
-let container;
-let root;
+declare global {
+  var IS_REACT_ACT_ENVIRONMENT: boolean;
+}
+
+let container: HTMLDivElement;
+let root: Root;
 
 globalThis.IS_REACT_ACT_ENVIRONMENT = true;
 
@@ -23,15 +27,19 @@ afterEach(() => {
   document.body.removeChild(container);
 });
 
-function squares() {
-  return container.querySelectorAll('.square');
+function squares(): NodeListOf<HTMLButtonElement> {
+  return container.querySelectorAll<HTMLButtonElement>('.square');
 }
 
-function status() {
-  return container.querySelector('.game-info > div').textContent;
+function status(): string {
+  const statusElement = container.querySelector<HTMLElement>('.game-info > div');
+  if (!statusElement) {
+    throw new Error('Unable to find the game status.');
+  }
+  return statusElement.textContent || '';
 }
 
-function clickSquare(index) {
+function clickSquare(index: number): void {
   act(() => {
     squares()[index].click();
   });
@@ -70,7 +78,7 @@ it('replaces future history after jumping back and playing again', () => {
   clickSquare(1);
   clickSquare(2);
 
-  const moveOne = container.querySelectorAll('.move')[1];
+  const moveOne = container.querySelectorAll<HTMLAnchorElement>('.move')[1];
   act(() => {
     moveOne.click();
   });
