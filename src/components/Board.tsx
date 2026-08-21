@@ -1,18 +1,27 @@
-import React, { Component } from 'react';
+import { Component } from 'react';
+import type { SquareValue, Squares } from '../gameTypes';
 
-const Square = (props) => (
-  <button className="square" onClick={props.onClick}>
-      {props.value}
-    </button>
-  );
-  
+interface SquareProps {
+  value: SquareValue;
+  onClick: () => void;
+}
 
+const Square = ({ value, onClick }: SquareProps) => (
+  <button className="square" onClick={onClick}>
+    {value}
+  </button>
+);
 
-class Board extends Component {
-  renderSquare = (i) => (
+interface BoardProps {
+  squares: Squares;
+  onClick: (index: number) => void;
+}
+
+class Board extends Component<BoardProps> {
+  renderSquare = (index: number) => (
     <Square
-    value={this.props.squares[i]}
-    onClick={() => this.props.onClick(i)}
+      value={this.props.squares[index]}
+      onClick={() => this.props.onClick(index)}
     />
   );
 
