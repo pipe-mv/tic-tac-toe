@@ -1,9 +1,16 @@
-import React, { Component } from "react";
+import { Component } from "react";
 import Board from "./Board";
+import type { HistoryEntry, Player, Squares } from "../gameTypes";
 import "./Game.css";
 
-class Game extends Component {
-  state = {
+interface GameState {
+  history: HistoryEntry[];
+  stepNumber: number;
+  xIsNext: boolean;
+}
+
+class Game extends Component<Record<string, never>, GameState> {
+  state: GameState = {
     history: [
       {
         squares: Array(9).fill(null),
@@ -13,7 +20,7 @@ class Game extends Component {
     xIsNext: true,
   };
 
-  handleClick = (i) => {
+  handleClick = (i: number) => {
     const history = this.state.history.slice(0, this.state.stepNumber + 1);
     console.log(history);
     const current = history[history.length - 1];
@@ -36,12 +43,13 @@ class Game extends Component {
     });
   };
 
-  jumpTo(step) {
+  jumpTo(step: number) {
     this.setState({
       stepNumber: step,
       xIsNext: step % 2 === 0,
     });
   }
+
   render() {
     const history = this.state.history;
     const current = history[this.state.stepNumber];
@@ -89,7 +97,7 @@ class Game extends Component {
 
 // Calculation for the blocks
 
-function calculateWinner(squares) {
+function calculateWinner(squares: Squares): Player | null {
   const lines = [
     [0, 1, 2],
     [3, 4, 5],
