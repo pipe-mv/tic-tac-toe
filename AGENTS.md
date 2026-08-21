@@ -2,32 +2,36 @@
 
 ## Project overview
 
-This repository contains a browser-based tic-tac-toe game built with React 19 and Vite. The game supports alternating X/O turns, winner detection, and navigation through the complete move history.
+This repository contains a browser-based tic-tac-toe game built with React 19, TypeScript, and Vite. The game supports alternating X/O turns, winner detection, and navigation through the complete move history.
 
 ## Project structure
 
 - `index.html` is the Vite application shell.
-- `src/index.jsx` is the application entry point and mounts the game.
-- `src/components/Game.jsx` owns game state, move history, time travel, and winner calculation.
-- `src/components/Board.jsx` renders the board and its squares.
+- `src/index.tsx` is the application entry point and mounts the game.
+- `src/components/Game.tsx` owns game state, move history, time travel, and winner calculation.
+- `src/components/Board.tsx` renders the board and its squares.
+- `src/gameTypes.ts` contains shared game-state types.
 - `src/components/Game.css` and `src/index.css` contain the application styles.
-- `src/Game.test.jsx` contains the behavior tests.
+- `src/Game.test.tsx` contains the behavior tests.
 - `public/` contains static assets copied into the production build.
+- `public/service-worker.js` retires the service worker and cache from the previous Create React App deployment.
 - `assets/` contains images used by the README.
 - `build/` is generated deployment output; do not edit it by hand.
 
 ## Setup and commands
 
-Use Node.js 20 or newer and install the locked dependencies with npm.
+Use Node.js 24 when possible and install the locked dependencies with npm.
 
 ```sh
 npm ci
 npm start
+npm run typecheck
 npm test
 npm run build
 ```
 
 - `npm start` runs the local development server.
+- `npm run typecheck` checks the TypeScript project without emitting files.
 - `npm test` runs the Vitest suite once.
 - `npm run test:watch` runs Vitest in watch mode.
 - `npm run build` creates the production bundle in `build/`.
@@ -48,7 +52,7 @@ npm run build
 ## Testing and verification
 
 - Add or update tests for behavior changes, especially winner detection, invalid moves, turn order, and history branching.
-- Run the test suite after changing JavaScript behavior.
+- Run the type-checker and test suite after changing TypeScript behavior.
 - Run a production build after changing application code, dependencies, or build configuration.
 - For UI changes, manually verify board interaction, winner status, keyboard focus, and history navigation.
 
