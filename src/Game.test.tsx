@@ -1,15 +1,15 @@
-import React, { act } from 'react';
+import { act } from 'react';
 import { createRoot, type Root } from 'react-dom/client';
 import Game from './components/Game';
-
-declare global {
-  var IS_REACT_ACT_ENVIRONMENT: boolean;
-}
 
 let container: HTMLDivElement;
 let root: Root;
 
-globalThis.IS_REACT_ACT_ENVIRONMENT = true;
+const testEnvironment = globalThis as typeof globalThis & {
+  IS_REACT_ACT_ENVIRONMENT: boolean;
+};
+
+testEnvironment.IS_REACT_ACT_ENVIRONMENT = true;
 
 beforeEach(() => {
   container = document.createElement('div');
@@ -27,23 +27,22 @@ afterEach(() => {
   document.body.removeChild(container);
 });
 
-function squares(): NodeListOf<HTMLButtonElement> {
-  return container.querySelectorAll<HTMLButtonElement>('.square');
-}
+const squares = () =>
+  container.querySelectorAll<HTMLButtonElement>('.square');
 
-function status(): string {
+const status = () => {
   const statusElement = container.querySelector<HTMLElement>('.game-info > div');
   if (!statusElement) {
     throw new Error('Unable to find the game status.');
   }
-  return statusElement.textContent || '';
-}
+  return statusElement.textContent ?? '';
+};
 
-function clickSquare(index: number): void {
+const clickSquare = (index: number) => {
   act(() => {
     squares()[index].click();
   });
-}
+};
 
 it('renders the initial game state', () => {
   expect(squares().length).toBe(9);
