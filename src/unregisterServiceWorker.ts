@@ -1,7 +1,7 @@
-export function unregisterServiceWorker(): void {
+export const unregisterServiceWorker = (): void => {
   if ('serviceWorker' in navigator) {
     void navigator.serviceWorker.ready.then((registration) => {
       void registration.unregister();
     });
   }
-}
+};
