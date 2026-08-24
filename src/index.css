@@ -9,10 +9,8 @@ body {
   /* This is mostly intended for prototyping; please download the pattern and re-host for production environments. Thank you! */
 }
 
-.board-row:after {
-  clear: both;
-  content: "";
-  display: table;
+.board-row {
+  display: flex;
 }
 
 .errors {
@@ -29,17 +27,18 @@ body {
 }
 
 .square {
+  --square-size: clamp(72px, 10vw, 112px);
+
   background: #fff;
-  float: left;
-  font-size: 36px;
+  font-size: clamp(36px, 6vw, 64px);
   font-weight: bold;
-  line-height: 34px;
-  height: 48px;
+  height: var(--square-size);
+  line-height: 1;
   margin-right: -1px;
   margin-top: -1px;
   padding: 0;
   text-align: center;
-  width: 48px;
+  width: var(--square-size);
 }
 
 .square:focus {
@@ -74,4 +73,26 @@ ol {
 
 .move {
   color: springgreen;
+}
+
+@media (max-width: 600px) {
+  body {
+    margin: 16px;
+    padding: 0;
+  }
+
+  .game {
+    align-items: center;
+    flex-direction: column;
+    margin-left: 0;
+  }
+
+  .game-info {
+    margin-left: 0;
+    margin-top: 24px;
+  }
+
+  .title {
+    text-align: center;
+  }
 }
