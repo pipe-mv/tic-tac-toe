@@ -2,11 +2,6 @@ name: CI and Deploy
 
 on:
   pull_request:
-    types:
-      - opened
-      - synchronize
-      - reopened
-      - closed
     branches:
       - master
   push:
@@ -19,12 +14,11 @@ permissions:
 
 concurrency:
   group: ci-${{ github.workflow }}-${{ github.event_name }}-${{ github.event.pull_request.number || github.ref }}
-  cancel-in-progress: ${{ github.event_name == 'pull_request' && github.event.action != 'closed' }}
+  cancel-in-progress: ${{ github.event_name == 'pull_request' }}
 
 jobs:
-  test-and-build:
-    name: Test and build
-    if: github.event_name != 'pull_request' || github.event.action != 'closed'
+  verify:
+    name: ${{ github.event_name == 'pull_request' && 'Test and build' || 'Post-merge verification' }}
     runs-on: ubuntu-latest
     timeout-minutes: 10
 
@@ -55,41 +49,7 @@ jobs:
         uses: actions/configure-pages@v6
 
       - name: Package GitHub Pages artifact
-        uses: actions/upload-pages-artifact@v5
-        with:
-          path: build
-
-  post-merge-verification:
-    name: Post-merge verification
-    if: github.event_name == 'pull_request' && github.event.action == 'closed' && github.event.pull_request.merged == true
-    runs-on: ubuntu-latest
-    timeout-minutes: 10
-
-    steps:
-      - name: Check out merged commit
-        uses: actions/checkout@v7
-        with:
-          ref: ${{ github.event.pull_request.merge_commit_sha }}
-
-      - name: Set up Node.js
-        uses: actions/setup-node@v6
-        with:
-          node-version: 24
-          cache: npm
-
-      - name: Install dependencies
-        run: npm ci
-
-      - name: Check TypeScript
-        run: npm run typecheck
-
-      - name: Run tests
-        run: npm test
-
-      - name: Build production bundle
-        run: npm run build
-
-      - name: Package GitHub Pages artifact
+        if: github.event_name != 'pull_request' && github.ref == 'refs/heads/master'
         uses: actions/upload-pages-artifact@v5
         with:
           path: build
@@ -97,7 +57,7 @@ jobs:
   deploy:
     name: Deploy production site
     if: github.event_name != 'pull_request' && github.ref == 'refs/heads/master'
-    needs: test-and-build
+    needs: verify
     runs-on: ubuntu-latest
     timeout-minutes: 10
     concurrency:
