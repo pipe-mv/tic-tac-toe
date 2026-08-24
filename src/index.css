@@ -50,8 +50,13 @@ body {
 }
 
 ol {
+  display: grid;
   font-weight: normal;
+  gap: 8px;
+  margin-top: 16px;
+  padding-left: 24px;
 }
+
 .game {
   display: flex;
   flex-direction: row;
@@ -61,8 +66,10 @@ ol {
 }
 
 .game-info {
-  margin-left: 60px;
   font-weight: bold;
+  line-height: 1.4;
+  margin-left: 60px;
+  min-width: 130px;
 }
 
 .title {
@@ -90,6 +97,12 @@ ol {
   .game-info {
     margin-left: 0;
     margin-top: 24px;
+    min-width: auto;
+  }
+
+  ol {
+    gap: 6px;
+    margin-top: 12px;
   }
 
   .title {
