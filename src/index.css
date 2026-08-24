@@ -29,16 +29,27 @@ body {
 .square {
   --square-size: clamp(72px, 10vw, 112px);
 
+  -webkit-appearance: none;
+  appearance: none;
   background: #fff;
+  border: 2px solid #999;
+  border-radius: 0;
   font-size: clamp(36px, 6vw, 64px);
   font-weight: bold;
   height: var(--square-size);
   line-height: 1;
-  margin-right: -1px;
-  margin-top: -1px;
+  margin: 0;
   padding: 0;
   text-align: center;
   width: var(--square-size);
+}
+
+.square + .square {
+  border-left: 0;
+}
+
+.board-row + .board-row .square {
+  border-top: 0;
 }
 
 .square:focus {
