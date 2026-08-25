@@ -1,12 +1,17 @@
 import { useState } from "react";
 import Board from "./Board";
-import type { HistoryEntry, Player, Squares } from "../gameTypes";
+import type { HistoryEntry, Player, Squares, WinningLine } from "../gameTypes";
 import "./Game.css";
 
 interface GameState {
   history: HistoryEntry[];
   stepNumber: number;
   xIsNext: boolean;
+}
+
+interface Winner {
+  player: Player;
+  line: WinningLine;
 }
 
 const Game = () => {
@@ -65,7 +70,7 @@ const Game = () => {
 
   let status;
   if (winner) {
-    status = "Winner: " + winner;
+    status = "Winner: " + winner.player;
   } else {
     status = "Next player: " + (gameState.xIsNext ? "X" : "O");
   }
@@ -76,7 +81,11 @@ const Game = () => {
 
       <div className="game">
         <div className="game-board">
-          <Board squares={current.squares} onClick={handleClick} />
+          <Board
+            squares={current.squares}
+            onClick={handleClick}
+            winningLine={winner?.line ?? null}
+          />
         </div>
         <div className="game-info">
           <div>{status}</div>
@@ -89,8 +98,8 @@ const Game = () => {
 
 // Calculation for the blocks
 
-function calculateWinner(squares: Squares): Player | null {
-  const lines = [
+function calculateWinner(squares: Squares): Winner | null {
+  const lines: WinningLine[] = [
     [0, 1, 2],
     [3, 4, 5],
     [6, 7, 8],
@@ -103,7 +112,10 @@ function calculateWinner(squares: Squares): Player | null {
   for (let i = 0; i < lines.length; i++) {
     const [a, b, c] = lines[i];
     if (squares[a] && squares[a] === squares[b] && squares[a] === squares[c]) {
-      return squares[a];
+      return {
+        player: squares[a],
+        line: lines[i],
+      };
     }
   }
   return null;

@@ -67,6 +67,11 @@ it('detects a winner and prevents further moves', () => {
   [0, 3, 1, 4, 2].forEach(clickSquare);
 
   expect(status()).toBe('Winner: X');
+  const winningLine = container.querySelector<SVGLineElement>('.winning-line line');
+  expect(winningLine?.getAttribute('x1')).toBe('0.5');
+  expect(winningLine?.getAttribute('y1')).toBe('0.5');
+  expect(winningLine?.getAttribute('x2')).toBe('2.5');
+  expect(winningLine?.getAttribute('y2')).toBe('0.5');
   clickSquare(8);
   expect(squares()[8].textContent).toBe('');
   expect(status()).toBe('Winner: X');
