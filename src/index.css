@@ -13,6 +13,24 @@ body {
   display: flex;
 }
 
+.board {
+  position: relative;
+}
+
+.winning-line {
+  height: 100%;
+  inset: 0;
+  pointer-events: none;
+  position: absolute;
+  width: 100%;
+}
+
+.winning-line line {
+  stroke: springgreen;
+  stroke-linecap: round;
+  stroke-width: 0.07;
+}
+
 .errors {
   background: #c00;
   color: #fff;

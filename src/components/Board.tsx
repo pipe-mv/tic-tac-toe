@@ -1,4 +1,4 @@
-import type { SquareValue, Squares } from '../gameTypes';
+import type { SquareValue, Squares, WinningLine } from '../gameTypes';
 
 interface SquareProps {
   value: SquareValue;
@@ -14,9 +14,10 @@ const Square = ({ value, onClick }: SquareProps) => (
 interface BoardProps {
   squares: Squares;
   onClick: (index: number) => void;
+  winningLine: WinningLine | null;
 }
 
-const Board = ({ squares, onClick }: BoardProps) => {
+const Board = ({ squares, onClick, winningLine }: BoardProps) => {
   const renderSquare = (index: number) => (
     <Square
       value={squares[index]}
@@ -24,8 +25,17 @@ const Board = ({ squares, onClick }: BoardProps) => {
     />
   );
 
+  const winningLineCoordinates = winningLine
+    ? {
+        x1: (winningLine[0] % 3) + 0.5,
+        y1: Math.floor(winningLine[0] / 3) + 0.5,
+        x2: (winningLine[2] % 3) + 0.5,
+        y2: Math.floor(winningLine[2] / 3) + 0.5,
+      }
+    : null;
+
   return (
-    <div>
+    <div className="board">
       <div className="board-row">
         {renderSquare(0)}
         {renderSquare(1)}
@@ -41,6 +51,15 @@ const Board = ({ squares, onClick }: BoardProps) => {
         {renderSquare(7)}
         {renderSquare(8)}
       </div>
+      {winningLineCoordinates && (
+        <svg
+          aria-hidden="true"
+          className="winning-line"
+          viewBox="0 0 3 3"
+        >
+          <line {...winningLineCoordinates} />
+        </svg>
+      )}
     </div>
   );
 };
