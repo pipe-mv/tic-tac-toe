@@ -40,7 +40,7 @@ body {
   stroke-width: 0.07;
 }
 
-.errors {
+#errors {
   background: #c00;
   color: #fff;
   display: none;
@@ -140,8 +140,11 @@ ol {
   }
 
   ol {
-    gap: 6px;
+    column-gap: 32px;
+    grid-template-columns: repeat(2, max-content);
+    justify-content: center;
     margin-top: 12px;
+    row-gap: 6px;
   }
 }
 
