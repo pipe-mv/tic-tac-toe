@@ -101,7 +101,7 @@ ol {
   flex-direction: row;
   gap: clamp(32px, 6vw, 60px);
   justify-content: center;
-  margin-top: 15px;
+  margin-top: clamp(40px, 7vw, 72px);
 }
 
 .game-info {
@@ -113,7 +113,13 @@ ol {
 .title {
   color: #000;
   display: flex;
+  font-family: "DynaPuff", Georgia, serif;
+  font-size: clamp(2.25rem, 5vw, 4.5rem);
+  font-weight: 500;
   justify-content: center;
+  line-height: 1.1;
+  margin: 0;
+  text-align: center;
 }
 
 .move {
@@ -136,10 +142,6 @@ ol {
   ol {
     gap: 6px;
     margin-top: 12px;
-  }
-
-  .title {
-    text-align: center;
   }
 }
 
